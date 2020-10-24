@@ -1,0 +1,12 @@
+# Data files
+*.csv
+
+# Images
+*.pdf
+*.png
+*.jpg
+*.jpeg
+
+# Rstudio
+*.Rhistory
+
