@@ -10,3 +10,6 @@
 # Rstudio
 *.Rhistory
 
+# Folders
+old/
+__pycache__/

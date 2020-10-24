@@ -2,6 +2,7 @@
 # Import libraries
 import statsmodels.formula.api as smf
 import matplotlib.pyplot as plt
+
 from formulas import *
 from data import *
 
