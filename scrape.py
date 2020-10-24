@@ -20,27 +20,27 @@ def get_time():
     day = now.weekday()
     hour = now.time().hour
     mins = now.time().minute
+    dday = now.day
+    month = now.month
 
-    return hour, mins, ["MO", "DI", "MI", "DO", "FR", "SA", "SO"][day]
+    return hour, mins, ["MO", "DI", "MI", "DO", "FR", "SA", "SO"][day], dday, month
 
 
-wait_time = 600  # waiting time in seconds
-f = open("kicount.txt", "w")
-
-print("Start scraping!")
+# Define waiting time in seconds
+wait_time = 600
 
 while True:
 
-    time.sleep(wait_time)
-
     current, total = get_current()
-    hour, mins, day = get_time()
-    line = [current, total, hour, mins, day]
+    hour, mins, day, dday, month = get_time()
+    line = [current, total, hour, mins, day, dday, month]
     line_str = ','.join((str(l) for l in line))
 
+    f = open("kicount.txt", "a")
     f.write(line_str)
     f.writelines("\n")
     f.flush()
-    print("Got new datapoint.")
+    f.close()
+    print("Got new datapoint, waiting %ds" % wait_time)
 
-f.close()
+    time.sleep(wait_time)
