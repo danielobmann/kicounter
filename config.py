@@ -1,8 +1,8 @@
 import os
 
-vars = {"path": "data/kicount_old_middleJuly.csv",
-        "model_path": "models/",
-        "img_path": "images/",
+vars = {"path": "data\\kicount_old_middleJuly.csv",
+        "model_path": "models\\",
+        "img_path": "images\\",
         "mins": 24 * 60,
         "minimum": 0,
         "maximum": 350,
