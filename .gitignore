@@ -12,4 +12,6 @@
 
 # Folders
 old/
+models/
+images/
 __pycache__/
