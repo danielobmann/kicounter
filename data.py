@@ -74,13 +74,17 @@ def convert_ds(ds):
 def get_details(detail):
     wday, day, month, hours, year = convert_ds(detail['ds'])
     N = len(hours)
+    try:
+        temp = detail['temp']
+    except:
+        temp = -99
 
     res = pd.DataFrame({'wday': N*[wday],
                         'day': N*[day],
                         'month': N*[month],
                         'year': N*[year],
                         'hour': hours,
-                        'temp': N*[detail['temp']],
+                        'temp': N*[temp],
                         'humidity': N*[detail['hum']],
                         'description': N*[detail['desc']],
                         'baro': N*[detail['baro']]})
@@ -114,12 +118,12 @@ def read_data(path=config.vars["path"]):
 def merge_data(path=config.vars["path"], year=2020):
     ki = read_data(path=path)
 
-    months = [6, 7] #set(ki['month'])
+    months = set(ki['month'])
     df_new = pd.DataFrame()
 
     for month in months:
-        temp, detail = robust_temp(month=month, year=year)
-        df_new = df_new.append(get_all(temp, detail), ignore_index=True)
+        temp, det = robust_temp(month=month, year=year)
+        df_new = df_new.append(get_all(temp, det), ignore_index=True)
 
     merge_on = ['month', 'day', 'hour', 'wday']
     df = pd.merge(ki, df_new, how='left', left_on=merge_on, right_on=merge_on)
@@ -130,7 +134,6 @@ try:
     df = pd.read_csv(config.vars["extended_path"], index_col=0)
 except:
     df = merge_data()
-    df = df.drop([df.shape[0]-1], axis=0)
     df.to_csv(config.vars["extended_path"])
 
 
