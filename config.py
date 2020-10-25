@@ -1,6 +1,6 @@
 import os
 
-vars = {"path": "data\\kicount_old_middleJuly.csv",
+vars = {"path": "data\\kicount_extended_july.csv",
         "scrape_path": "data\\kicount.txt",
         "extended_path": "data\\kicount_extended.csv",
         "model_path": "models\\",

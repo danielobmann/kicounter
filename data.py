@@ -109,13 +109,13 @@ def get_all(temp, details):
     return df
 
 
-def read_data(path=config.vars["path"]):
-    data = pd.read_csv(path, names=["count", "total", "hour", "minute", "wday", "day", "month"])
+def read_data(path=config.vars["scrape_path"]):
+    data = pd.read_csv(path, names=["count", "total", "hour", "minute", "wday", "day", "month", "year"])
     data["daymin"] = (60 * data["hour"] + data["minute"]) / config.vars["mins"]
     return data
 
 
-def merge_data(path=config.vars["path"], year=2020):
+def merge_data(path=config.vars["scrape_path"], year=2020):
     ki = read_data(path=path)
 
     months = set(ki['month'])
