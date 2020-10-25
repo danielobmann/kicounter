@@ -127,11 +127,11 @@ def merge_data(path=config.vars["path"], year=2020):
 
 
 try:
-    df = pd.read_csv("data/kicount.csv", index_col=0)
+    df = pd.read_csv(config.vars["extended_path"], index_col=0)
 except:
     df = merge_data()
     df = df.drop([df.shape[0]-1], axis=0)
-    df.to_csv("data/kicount.csv")
+    df.to_csv(config.vars["extended_path"])
 
 
 def get_weekday_data(df=df, wday="MO", beg=config.vars["opening"], end=config.vars["closing"], scale=True):

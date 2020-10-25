@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import datetime
 import time
 
+import config
+
 
 def get_current():
     page = requests.get("https://www.kletterzentrum-innsbruck.at/")
@@ -22,8 +24,9 @@ def get_time():
     mins = now.time().minute
     dday = now.day
     month = now.month
+    year = now.year
 
-    return hour, mins, ["MO", "DI", "MI", "DO", "FR", "SA", "SO"][day], dday, month
+    return hour, mins, ["MO", "DI", "MI", "DO", "FR", "SA", "SO"][day], dday, month, year
 
 
 # Define waiting time in seconds
@@ -32,11 +35,11 @@ wait_time = 600
 while True:
 
     current, total = get_current()
-    hour, mins, day, dday, month = get_time()
-    line = [current, total, hour, mins, day, dday, month]
+    hour, mins, day, dday, month, year = get_time()
+    line = [current, total, hour, mins, day, dday, month, year]
     line_str = ','.join((str(l) for l in line))
 
-    f = open("kicount.txt", "a")
+    f = open(config.vars["scrape_path"], "a")
     f.write(line_str)
     f.writelines("\n")
     f.flush()

@@ -1,6 +1,8 @@
 import os
 
 vars = {"path": "data\\kicount_old_middleJuly.csv",
+        "scrape_path": "data\\kicount.txt",
+        "extended_path": "data\\kicount_extended.csv",
         "model_path": "models\\",
         "img_path": "images\\",
         "mins": 24 * 60,
