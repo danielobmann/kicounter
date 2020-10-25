@@ -113,7 +113,7 @@ def read_data(path=config.vars["path"]):
 
 def merge_data(path=config.vars["path"], year=2020):
     ki = read_data(path=path)
-    
+
     months = [6, 7] #set(ki['month'])
     df_new = pd.DataFrame()
 
@@ -126,14 +126,18 @@ def merge_data(path=config.vars["path"], year=2020):
     return df
 
 
-df = merge_data()
+try:
+    df = pd.read_csv("data/kicount.csv", index_col=0)
+except:
+    df = merge_data()
+    df = df.drop([df.shape[0]-1], axis=0)
+    df.to_csv("data/kicount.csv")
 
 
-def get_weekday_data(wday="MO", beg=config.vars["opening"], end=config.vars["closing"], scale=True):
+def get_weekday_data(df=df, wday="MO", beg=config.vars["opening"], end=config.vars["closing"], scale=True):
     data = df.loc[(df["wday"] == wday) & (df["hour"] < end) & (df["hour"] >= beg), ]
     if scale:
         m = np.amin(data["daymin"])
         M = np.amax(data["daymin"])
         data.loc[:, "daymin"] = (data.loc[:, "daymin"] - m)/(M - m)
     return data
-
